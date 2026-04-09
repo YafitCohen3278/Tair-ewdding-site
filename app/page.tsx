@@ -7,6 +7,9 @@ import { letters } from "@/data/letters";
 import { QrCode, Lock, Unlock } from "lucide-react";
 import { FlipClock } from "@/components/FlipClock";
 
+const WEDDING_DATE_ISO = "2026-06-15T19:00:00+03:00";
+const WEDDING_DATE_LABEL = "15.06.2026";
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
 
@@ -32,7 +35,7 @@ export default function Home() {
 
       <div className="w-full max-w-6xl mx-auto space-y-12 relative z-10 px-4 sm:px-6 lg:px-8">
         <header className="text-center space-y-12 mt-4 flex flex-col items-center">
-          <FlipClock targetDate="2026-05-12T19:00:00" />
+          <FlipClock targetDate={WEDDING_DATE_ISO} />
           
           <div className="space-y-6 md:space-y-7 w-full overflow-hidden">
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-handwriting font-bold text-[#2b1b4b] tracking-wide pb-4 drop-shadow-md whitespace-nowrap">
@@ -108,7 +111,7 @@ export default function Home() {
                 Michael & Tair
               </span>
               <span className="text-2xl md:text-4xl font-handwriting tracking-widest mt-1 drop-shadow-md" dir="ltr">
-                15.06.2026
+                {WEDDING_DATE_LABEL}
               </span>
             </div>
           </div>
