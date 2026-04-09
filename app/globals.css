@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "GveretLevinAlefAlefAlef";
+  src: url("/fonts/gveret-levin/GveretLevinAlefAlefAlef/web/GveretLevinAlefAlefAlef-Regular.woff2") format("woff2"),
+    url("/fonts/gveret-levin/GveretLevinAlefAlefAlef/web/GveretLevinAlefAlefAlef-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "WelcomeDarling";
+  src: url("/fonts/welcome_darling/Welcome%20Darling.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@theme inline {
+  --color-dusty-pink: #ec4899;
+  --color-dusty-pink-light: #e6f7ff;
+  --color-accent: #7c3aed;
+  --color-accent-light: #a78bfa;
+  --color-deep-black: #2b1b4b;
+  
+  --font-handwriting: "GveretLevinAlefAlefAlef", var(--font-sans), sans-serif;
+  --font-sans: var(--font-sans);
+}
+
+@layer utilities {
+  .text-shadow-accent {
+    text-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
+  }
+  .box-shadow-accent {
+    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2);
+  }
+  .hover-glow-accent:hover {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+    border-color: var(--color-accent);
+  }
+}
+
+body {
+  background-color: var(--color-dusty-pink-light);
+  color: var(--color-deep-black);
+  font-family: var(--font-handwriting);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4, h5, h6, .font-handwriting, .font-serif {
+  font-family: var(--font-handwriting);
+  font-weight: 400;
+}
+
+:lang(en), [dir="ltr"] {
+  font-family: "WelcomeDarling", var(--font-sans), sans-serif;
+  font-weight: 400;
+}
+
+/* Flip clock specific styles */
+.flip-card {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  transform-style: preserve-3d;
+}
+.flip-card-front, .flip-card-back {
+  backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateX(180deg);
+}
