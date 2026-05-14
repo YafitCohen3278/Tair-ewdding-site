@@ -1,5 +1,6 @@
 import { Lock } from 'lucide-react';
 import { RomanticCard } from './RomanticCard';
+import { IL_TIMEZONE } from '@/lib/jerusalemMidnight';
 
 export function LockedMessage({ openDate }: { openDate: string }) {
   const target = new Date(openDate);
@@ -16,6 +17,7 @@ export function LockedMessage({ openDate }: { openDate: string }) {
   }
 
   const whenLabel = target.toLocaleString('he-IL', {
+    timeZone: IL_TIMEZONE,
     weekday: 'long',
     day: 'numeric',
     month: 'long',

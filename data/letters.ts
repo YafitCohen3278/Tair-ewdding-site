@@ -1,4 +1,4 @@
-import { addDays } from "date-fns";
+import { addCalendarDaysUtc, jerusalemStartOfDay } from "@/lib/jerusalemMidnight";
 
 export interface Letter {
   id: number;
@@ -13,10 +13,9 @@ export interface Letter {
 const FIRST_DAY_CAL =
   (process.env.FIRST_LETTER_OPENS_AT ?? "2026-05-17").trim().slice(0, 10);
 
-const FIRST_OPENS_MIDNIGHT_IL = `${FIRST_DAY_CAL}T00:00:00+03:00`;
-
 function opensAtForLetter(id: number): string {
-  return addDays(new Date(FIRST_OPENS_MIDNIGHT_IL), id - 1).toISOString();
+  const cal = addCalendarDaysUtc(FIRST_DAY_CAL, id - 1);
+  return jerusalemStartOfDay(cal).toISOString();
 }
 
 const mockSenders = [

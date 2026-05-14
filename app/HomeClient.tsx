@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { letters } from "@/data/letters";
+import { IL_TIMEZONE } from "@/lib/jerusalemMidnight";
 import { Lock, Unlock } from "lucide-react";
 import { FlipClock } from "@/components/FlipClock";
 
@@ -82,6 +83,7 @@ export default function HomeClient({ unlockAll }: { unlockAll: boolean }) {
                     ) : (
                       <span className="text-lg md:text-2xl font-handwriting text-gray-600 font-bold leading-tight">
                         {openDate.toLocaleString("he-IL", {
+                          timeZone: IL_TIMEZONE,
                           dateStyle: "short",
                           timeStyle: "short",
                         })}
