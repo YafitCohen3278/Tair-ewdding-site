@@ -1,9 +1,12 @@
 import { notFound } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { letters } from '@/data/letters';
 import { LockedMessage } from '@/components/LockedMessage';
 import { LetterContent } from '@/components/LetterContent';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return letters.map((l) => ({ id: l.id.toString() }));
@@ -17,10 +20,10 @@ export default async function LetterPage({ params }: { params: Promise<{ id: str
     notFound();
   }
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const openDate = new Date(letter.open_date);
-  const isLocked = today < openDate;
+  const cookieStore = await cookies();
+  const unlockAll = cookieStore.get('letters_unlock')?.value === '1';
+  const openTime = new Date(letter.open_date).getTime();
+  const isLocked = !unlockAll && Date.now() < openTime;
 
   return (
     <main className="min-h-screen bg-[#dbeafe] md:bg-[#e6f7ff] py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center relative overflow-hidden">
