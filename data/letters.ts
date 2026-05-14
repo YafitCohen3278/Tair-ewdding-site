@@ -1,4 +1,4 @@
-import { addCalendarDaysUtc, jerusalemStartOfDay } from "@/lib/jerusalemMidnight";
+import { addCalendarDaysUtc, jerusalemWallClock } from "@/lib/jerusalemMidnight";
 
 export interface Letter {
   id: number;
@@ -15,7 +15,8 @@ const FIRST_DAY_CAL =
 
 function opensAtForLetter(id: number): string {
   const cal = addCalendarDaysUtc(FIRST_DAY_CAL, id - 1);
-  return jerusalemStartOfDay(cal).toISOString();
+  const hour = id === 1 ? 6 : 0;
+  return jerusalemWallClock(cal, hour, 0, 0).toISOString();
 }
 
 const mockSenders = [

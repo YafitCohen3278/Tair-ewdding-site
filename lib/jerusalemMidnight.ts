@@ -1,16 +1,17 @@
 const TZ = "Asia/Jerusalem";
 
-export function jerusalemStartOfDay(calYmd: string): Date {
+export function jerusalemWallClock(calYmd: string, hour: number, minute = 0, second = 0): Date {
   const [y, m, d] = calYmd.split("-").map((x) => parseInt(x, 10));
   const pad = (n: number) => String(n).padStart(2, "0");
   const prefix = `${y}-${pad(m)}-${pad(d)}`;
+  const clock = `${pad(hour)}:${pad(minute)}:${pad(second)}`;
   const lo = Date.UTC(y, m - 1, d - 1);
   const hi = Date.UTC(y, m - 1, d + 2);
   for (let t = lo; t < hi; t += 60000) {
     const s = new Date(t).toLocaleString("sv-SE", { timeZone: TZ });
-    if (s.startsWith(`${prefix} 00:00:00`)) return new Date(t);
+    if (s.startsWith(`${prefix} ${clock}`)) return new Date(t);
   }
-  throw new Error(`jerusalemStartOfDay ${calYmd}`);
+  throw new Error(`jerusalemWallClock ${calYmd} ${clock}`);
 }
 
 export function addCalendarDaysUtc(ymd: string, days: number): string {
