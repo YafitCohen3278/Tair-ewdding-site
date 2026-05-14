@@ -10,11 +10,13 @@ export interface Letter {
   open_date: string;
 }
 
-const FIRST_LETTER_OPENS_AT =
-  process.env.FIRST_LETTER_OPENS_AT ?? "2026-05-17T07:00:00+03:00";
+const FIRST_DAY_CAL =
+  (process.env.FIRST_LETTER_OPENS_AT ?? "2026-05-17").trim().slice(0, 10);
+
+const FIRST_OPENS_MIDNIGHT_IL = `${FIRST_DAY_CAL}T00:00:00+03:00`;
 
 function opensAtForLetter(id: number): string {
-  return addDays(new Date(FIRST_LETTER_OPENS_AT), id - 1).toISOString();
+  return addDays(new Date(FIRST_OPENS_MIDNIGHT_IL), id - 1).toISOString();
 }
 
 const mockSenders = [
