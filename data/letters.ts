@@ -25,7 +25,9 @@ const mockSenders = [
   "אורי", "הילה", "אלון", "טלי", "אסף", "קרן", "אמיר", "לירון", "גל", "החברות הכי טובות"
 ];
 
-const letterBodies: Partial<Record<number, { sender: string; content_text: string }>> = {
+const letterBodies: Partial<
+  Record<number, { sender: string; content_text?: string; content_url?: string | null }>
+> = {
   1: {
     sender: "מרים אורה",
     content_text: `לתאיר (המתרגלת ) האהובה כ"כ!!
@@ -225,6 +227,34 @@ Love you so much Ayala 🫶אילה ביטון`,
 
 אוהבת המון מירב❤️`,
   },
+  11: {
+    sender: "אורלי",
+    content_text: `מזל טוב ענק תאיר!!
+
+וואו אני לא מאמינה שאת עוד מעט מתחתנת!!
+
+יש לי כל כך הרבה זיכרונות כיפיים איתך: תוכניות פסח, טיולים, גלישה, 74 ❤️❤️, שבתות ביחד, מסיבת פיג׳מות ועוד הרבה!
+
+מאחלת לך אין סוף אושר ואת כל הטוב בעולם בהמשך הדרך. כל כך שמחה בשבילך!!
+
+אני ממש מתרגשת לרקוד איתך בחתונה!!! 🥳
+
+אוהבת המון,
+
+אורלי 🩷🩷`,
+  },
+  12: {
+    sender: "עדי",
+    content_url: "/images/עדי.jpeg",
+  },
+  13: {
+    sender: "עטרה",
+    content_url: "/images/עטרהבתדודה.jpeg",
+  },
+  14: {
+    sender: "צביה",
+    content_url: "/images/צביהבתדודה.jpeg",
+  },
   15: {
     sender: "טובי",
     content_text: `פולניה שלי בלב 💖💖
@@ -346,6 +376,32 @@ Love you so much Ayala 🫶אילה ביטון`,
 אוהבת המון
 
 יהודית`,
+  },
+  18: {
+    sender: "תהילה שיינר",
+    content_url: "/images/תהילה_שיינר.jpeg",
+  },
+  22: {
+    sender: "סבי וסבתי 🩷",
+    content_text: `לנכדתינו תאיר האהובה
+
+שמחה גדולה
+
+בליבינו לראותך עומדת ביום המיוחד שלך פותחת פרק חדש ומרגש בחיים.
+
+מהרגעים הראשונים צפינו בך גדלה והופכת לאישיות מדהימה שאת.
+
+לקראת היום הגדול אנו מאחלים לך ולמיכאל המון מזל טוב
+
+בעזה״ש תבנו בית נאמן, בית חם מלא אור ושמחה
+
+ושכל חלומותיכם יתגשמו אמן !!!!
+
+אוהבים מאוד
+
+מכל הלב
+
+סבי וסבתי 🩷`,
   },
   23: {
     sender: "אביטל ריינהולד",
@@ -575,7 +631,13 @@ export const letters: Letter[] = Array.from({ length: 30 }).map((_, i) => {
   let content_text = override?.content_text;
   let video_url = undefined;
   let content_url: string | null =
-    override !== undefined ? null : id % 5 === 0 ? null : `https://via.placeholder.com/600x400/dca5a5/ffffff?text=Letter+${id}`;
+    override?.content_url != null && override.content_url !== ""
+      ? override.content_url
+      : override !== undefined
+        ? null
+        : id % 5 === 0
+          ? null
+          : `https://via.placeholder.com/600x400/dca5a5/ffffff?text=Letter+${id}`;
 
   return {
     id,
