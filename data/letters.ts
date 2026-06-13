@@ -20,12 +20,6 @@ function opensAtForLetter(id: number): string {
   return jerusalemWallClock(cal, hour, 0, 0).toISOString();
 }
 
-const mockSenders = [
-  "יוסי", "דנה", "אמא ואבא", "סבתא רחל", "רון", "מיכל", "דניאל", "שיר", "עומר", "נועה",
-  "תומר", "יעל", "גיא", "מאיה", "איתי", "רוני", "נדב", "שירה", "עידו", "עדי",
-  "אורי", "הילה", "אלון", "טלי", "אסף", "קרן", "אמיר", "לירון", "גל", "החברות הכי טובות"
-];
-
 const letterBodies: Partial<
   Record<number, { sender: string; content_text?: string; content_url?: string | null; content_urls?: string[] }>
 > = {
@@ -718,31 +712,16 @@ Love you so much Ayala 🫶אילה ביטון`,
 
 export const letters: Letter[] = Array.from({ length: 30 }).map((_, i) => {
   const id = i + 1;
-
   const override = letterBodies[id];
-  let sender = override?.sender ?? mockSenders[i];
-  let content_text = override?.content_text;
-  let video_url = undefined;
-  const content_urls = override?.content_urls;
-  let content_url: string | null =
-    content_urls?.length
-      ? null
-      : override?.content_url != null && override.content_url !== ""
-        ? override.content_url
-        : override !== undefined
-          ? null
-          : id % 5 === 0
-            ? null
-            : `https://via.placeholder.com/600x400/dca5a5/ffffff?text=Letter+${id}`;
 
   return {
     id,
     title: `יום ${id} 💌`,
-    sender,
-    content_url,
-    content_urls,
-    content_text,
-    video_url,
+    sender: override?.sender ?? "",
+    content_url: override?.content_urls?.length ? null : override?.content_url ?? null,
+    content_urls: override?.content_urls,
+    content_text: override?.content_text ?? (id === 30 ? "מחר זה קורה" : undefined),
+    video_url: undefined,
     open_date: opensAtForLetter(id),
   };
 });
